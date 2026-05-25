@@ -593,6 +593,7 @@ function Footer({ onNavigate }) {
               {l:"Mentions légales", p:"mentions"},
               {l:"Politique de confidentialité", p:"confidentialite"},
               {l:"CGU", p:"cgu"},
+              {l:"Accessibilité", p:"accessibilite"},
             ]},
           ].map((col,i)=>(
             <div key={i}>
@@ -623,6 +624,10 @@ function Footer({ onNavigate }) {
 // ── APP ───────────────────────────────────────────────────────
 export default function App() {
   const [page, setPage] = useState(null);
+  if (page === "accessibilite") {
+    window.location.href = "/accessibilite.html";
+    return null;
+  }
   if (page) return <PagesLegales page={page} onBack={()=>setPage(null)} />;
   return (
     <div style={{fontFamily:"'Outfit','DM Sans',system-ui,sans-serif"}}>
