@@ -7,20 +7,17 @@ const EMAILJS_TEMPLATE_ID = "template_qk04afm";
 const EMAILJS_PUBLIC_KEY  = "cMXDq8ugwqe46HU87";
 
 const PALIERS = [
-  { id:"micro",   label:"Micro",       pop:"< 500 hab.",           mois:89,  an:909,   saving:15, couleur:"#64748b", sup:1,  arg:"= 1h de secrétariat / mois",    cout_hab:"~0,30€/hab/mois",
+  { id:"mini",     label:"Mini",     pop:"< 1 500 hab.",          mois:49,  an:499,  saving:15, couleur:"#64748b", sup:1, arg:"= 1h de secrétariat / mois",  cout_hab:"~0,16€/hab/mois",
     inclus:["1 superviseur inclus","App citoyens illimitée","Carte des signalements","IA urgence auto","Anti-doublons GPS","Support email"],
-    non:["Notifications push","SMS natif","API export","Marque blanche"] },
-  { id:"village", label:"Village",     pop:"500 – 2 000 hab.",     mois:179, an:1827,  saving:15, couleur:"#2a9d3a", sup:1,  arg:"= 1 panneau d'affichage / an",   cout_hab:"~0,14€/hab/mois", badge:"POPULAIRE",
+    non:["Statistiques avancées","Notifications push","Bon d'intervention PDF","API export","Marque blanche"] },
+  { id:"standard", label:"Standard", pop:"1 500 – 10 000 hab.",   mois:89,  an:908,  saving:15, couleur:"#2a9d3a", sup:1, arg:"= 1 panneau d'affichage / an", cout_hab:"~0,09€/hab/mois", badge:"POPULAIRE",
     inclus:["1 superviseur inclus","App citoyens illimitée","Carte + statistiques","IA complète","Notifications push","Bon d'intervention PDF","Support tél + email"],
     non:["API export","Marque blanche"] },
-  { id:"bourg",   label:"Bourg",       pop:"2 000 – 10 000 hab.",  mois:450, an:4590,  saving:15, couleur:"#2563eb", sup:2,  arg:"= 1 vacation d'agent / mois",    cout_hab:"~0,06€/hab/mois",
-    inclus:["2 superviseurs inclus","Tout Village +","Multi-équipes","Export PDF rapports","API export (Atal…)","Support prioritaire < 24h"],
+  { id:"plus",     label:"Plus",     pop:"10 000 – 50 000 hab.",  mois:149, an:1520, saving:15, couleur:"#2563eb", sup:2, arg:"= 1 vacation d'agent / mois",  cout_hab:"~0,01€/hab/mois",
+    inclus:["2 superviseurs inclus","Tout Standard +","Multi-équipes","Export PDF rapports","API export (Atal…)","Support prioritaire < 24h"],
     non:["Marque blanche"] },
-  { id:"ville",   label:"Ville",       pop:"10 000 – 50 000 hab.", mois:890, an:9078,  saving:15, couleur:"#e05c00", sup:3,  arg:"= budget comm. 10 jours",        cout_hab:"~0,04€/hab/mois",
-    inclus:["3 superviseurs inclus","Tout Bourg +","Marque blanche","Account manager dédié","SLA 99,5%","Formation équipes incluse"],
-    non:[] },
-  { id:"grande",  label:"Grande Ville",pop:"> 50 000 hab.",         mois:null,an:null,  saving:15, couleur:"#7a1a6b", sup:"∞", arg:"À partir de 0,01€/hab/mois",     cout_hab:"~0,01€/hab/mois", badge:"SUR DEVIS",
-    inclus:["Superviseurs illimités","Tout Ville +","Hébergement souverain","Intégration DSI","Onboarding sur site","SLA 99,9%"],
+  { id:"grande",  label:"Grande Ville", pop:"> 50 000 hab.",      mois:null,an:null, saving:15, couleur:"#7a1a6b", sup:"∞", arg:"À partir de 0,01€/hab/mois", cout_hab:"~0,01€/hab/mois", badge:"SUR DEVIS",
+    inclus:["Superviseurs illimités","Tout Plus +","Marque blanche","Account manager dédié","SLA 99,5%","Formation équipes incluse"],
     non:[] },
 ];
 
