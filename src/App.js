@@ -159,19 +159,18 @@ function SectionGratuit() {
             MaVilleSaine est financé par la commune. Téléchargement gratuit, sans publicité, sans vente de données.
           </p>
         </div>
-        <div style={{ display:"grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr 1fr", gap:16, marginBottom:32 }}>
-          {[
-            {icon:"📱", t:"Téléchargement gratuit", d:"Sur l'App Store et Google Play. Sans frais, sans abonnement, sans compte obligatoire."},
-            {icon:"🚫", t:"Zéro publicité", d:"Aucun tracking commercial. Vos données ne sont jamais revendues à des tiers."},
-            {icon:"🔒", t:"Données protégées", d:"Hébergement en France. Localisation utilisée uniquement au moment du signalement. Conformité RGPD totale."},
-          ].map((s,i)=>(
-            <div key={i} style={{ background:"rgba(255,255,255,0.15)", borderRadius:16, padding:22, border:"1px solid rgba(255,255,255,0.2)" }}>
-              <div style={{fontSize:30, marginBottom:12}}>{s.icon}</div>
-              <div style={{fontSize:15, fontWeight:700, marginBottom:8}}>{s.t}</div>
-              <div style={{fontSize:13, color:"rgba(255,255,255,0.8)", lineHeight:1.65}}>{s.d}</div>
-            </div>
-          ))}
-        </div>
+        <div style={{ display:"grid", gridTemplateColumns: mobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap:10 }}>
+            {PALIERS.map((p,i)=>(
+              <div key={i} style={{ background:"rgba(255,255,255,0.12)", borderRadius:12, padding:"12px 10px",
+                textAlign:"center", border:`1px solid ${p.couleur}55` }}>
+                <div style={{fontSize:10, color:"rgba(255,255,255,0.5)", marginBottom:4}}>{p.pop}</div>
+                <div style={{fontSize:22, fontWeight:900, color:"#fff"}}>{p.mois ? `${p.mois}€` : "Sur devis"}</div>
+                <div style={{fontSize:10, color:"rgba(255,255,255,0.4)"}}>{p.mois ? "/mois pour la commune" : "selon la ville"}</div>
+                <div style={{fontSize:11, color:"#86efac", fontWeight:700, marginTop:6,
+                  background:"rgba(26,107,60,0.3)", borderRadius:8, padding:"3px 6px"}}>{p.cout_hab}</div>
+              </div>
+            ))}
+          </div>
         <div style={{ background:"rgba(0,0,0,0.2)", borderRadius:16, padding:"22px 28px", border:"1px solid rgba(255,255,255,0.15)" }}>
           <div style={{fontSize:16, fontWeight:800, marginBottom:12, textAlign:"center"}}>💡 Qui paie ?</div>
           <p style={{fontSize:14, color:"rgba(255,255,255,0.88)", lineHeight:1.75, textAlign:"center", margin:"0 0 18px"}}>
