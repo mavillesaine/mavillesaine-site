@@ -74,7 +74,7 @@ function Navbar() {
         display:"flex", alignItems:"center", justifyContent:"space-between" }}>
         <Logo size={42} />
         <div style={{ display: mobile ? "none" : "flex", gap:26, alignItems:"center" }}>
-          {[["gratuit","100% Gratuit"],["fonctionnalites","Fonctionnalités"],["tarifs","Tarifs"],["faq","FAQ"],["contact","Contact"]].map(([id,l])=>(
+          {[["gratuit","100% Gratuit"],["fonctionnalites","Fonctionnalités"],["telecharger","L'app citoyenne"],["tarifs","Tarifs"],["faq","FAQ"],["contact","Contact"]].map(([id,l])=>(
             <span key={id} onClick={()=>go(id)} style={{ fontSize:14, color:G.g500, cursor:"pointer", fontWeight:500 }}
               onMouseEnter={e=>e.target.style.color=G.vert} onMouseLeave={e=>e.target.style.color=G.g500}>{l}</span>
           ))}
@@ -402,7 +402,117 @@ function SectionTemoignage() {
     </section>
   );
 }
+// ── TÉLÉCHARGER / CITOYENS ────────────────────────────────────
+function SectionTelecharger() {
+  const mobile = useIsMobile();
+  // Liens stores — à remplacer le jour de la publication
+  const LIEN_GOOGLE_PLAY = "";   // ex: "https://play.google.com/store/apps/details?id=..."
+  const LIEN_APP_STORE   = "";   // ex: "https://apps.apple.com/app/..."
+  const dispo = LIEN_GOOGLE_PLAY || LIEN_APP_STORE;
 
+  return (
+    <section id="telecharger" style={{ padding: mobile ? "40px 16px" : "64px 40px", background:G.g50 }}>
+      <div style={{ maxWidth:960, margin:"0 auto" }}>
+
+        {/* En-tête citoyens */}
+        <div style={{ textAlign:"center", marginBottom:40 }}>
+          <div style={{fontSize:12,color:G.vert,fontWeight:700,textTransform:"uppercase",letterSpacing:2.5,marginBottom:10}}>L'application citoyenne</div>
+          <h2 style={{fontSize:34,fontWeight:900,color:G.g900,margin:"0 0 14px",letterSpacing:-0.5}}>
+            Un problème dans votre rue ? Signalez-le.
+          </h2>
+          <p style={{fontSize:16,color:G.g500,lineHeight:1.8,maxWidth:600,margin:"0 auto"}}>
+            Nid-de-poule, éclairage en panne, dépôt sauvage, mobilier urbain dégradé…
+            Avec MaVilleSaine, vous prévenez votre mairie en quelques secondes, photo à l'appui.
+            <strong style={{color:G.vert}}> Gratuit, sans publicité.</strong>
+          </p>
+        </div>
+
+        {/* 3 étapes */}
+        <div style={{ display:"grid", gridTemplateColumns: mobile ? "1fr" : "repeat(3,1fr)", gap:16, marginBottom:40 }}>
+          {[
+            {n:"1", icon:"📸", t:"Prenez une photo", d:"Photographiez le problème directement depuis l'application."},
+            {n:"2", icon:"📍", t:"Localisation automatique", d:"L'app enregistre le lieu exact. Rien à saisir."},
+            {n:"3", icon:"✅", t:"C'est envoyé", d:"Votre signalement arrive directement aux services techniques de la mairie."},
+          ].map((s,i)=>(
+            <div key={i} style={{ background:"#fff", borderRadius:16, padding:24, border:`1px solid ${G.g200}`, position:"relative" }}>
+              <div style={{position:"absolute",top:18,right:20,fontSize:36,fontWeight:900,color:G.g100}}>{s.n}</div>
+              <div style={{fontSize:32,marginBottom:12}}>{s.icon}</div>
+              <div style={{fontSize:15,fontWeight:700,color:G.g900,marginBottom:8}}>{s.t}</div>
+              <div style={{fontSize:13,color:G.g500,lineHeight:1.65}}>{s.d}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Boutons de téléchargement */}
+        <div style={{ background:`linear-gradient(135deg,${G.vert},${G.vertMid})`, borderRadius:20, padding: mobile ? "32px 20px" : "40px",
+          textAlign:"center", color:"#fff", marginBottom:40 }}>
+          <div style={{fontSize:40,marginBottom:14}}>📱</div>
+          <h3 style={{fontSize:24,fontWeight:900,margin:"0 0 10px"}}>Téléchargez l'application</h3>
+          {dispo ? (
+            <>
+              <p style={{fontSize:14,color:"rgba(255,255,255,0.85)",margin:"0 0 24px"}}>Gratuite sur iOS et Android</p>
+              <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
+                {LIEN_APP_STORE && (
+                  <a href={LIEN_APP_STORE} target="_blank" rel="noopener noreferrer"
+                    style={{background:"#000",color:"#fff",padding:"13px 26px",borderRadius:12,fontSize:15,fontWeight:700,
+                      textDecoration:"none",display:"inline-flex",alignItems:"center",gap:10}}>
+                    🍎 App Store
+                  </a>
+                )}
+                {LIEN_GOOGLE_PLAY && (
+                  <a href={LIEN_GOOGLE_PLAY} target="_blank" rel="noopener noreferrer"
+                    style={{background:"#fff",color:G.g900,padding:"13px 26px",borderRadius:12,fontSize:15,fontWeight:700,
+                      textDecoration:"none",display:"inline-flex",alignItems:"center",gap:10}}>
+                    ▶ Google Play
+                  </a>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <p style={{fontSize:14,color:"rgba(255,255,255,0.85)",margin:"0 0 8px"}}>
+                L'application arrive très prochainement sur iOS et Android.
+              </p>
+              <p style={{fontSize:13,color:"rgba(255,255,255,0.65)",margin:"0 0 20px"}}>
+                Votre commune n'est pas encore équipée ? Parlez-en à votre mairie.
+              </p>
+              <div style={{display:"inline-flex",gap:12,flexWrap:"wrap",justifyContent:"center"}}>
+                <span style={{background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.25)",
+                  padding:"12px 22px",borderRadius:12,fontSize:14,fontWeight:600}}>🍎 App Store — bientôt</span>
+                <span style={{background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.25)",
+                  padding:"12px 22px",borderRadius:12,fontSize:14,fontWeight:600}}>▶ Google Play — bientôt</span>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Section mairies */}
+        <div style={{ background:G.dark, borderRadius:20, padding: mobile ? "28px 20px" : "36px 40px",
+          display:"grid", gridTemplateColumns: mobile ? "1fr" : "1.4fr 1fr", gap: mobile ? 20 : 40, alignItems:"center" }}>
+          <div>
+            <div style={{fontSize:12,color:"#86efac",fontWeight:700,textTransform:"uppercase",letterSpacing:2,marginBottom:10}}>Vous êtes une mairie ?</div>
+            <h3 style={{fontSize:22,fontWeight:900,color:"#fff",margin:"0 0 12px",letterSpacing:-0.3}}>
+              Nous vous accompagnons de A à Z
+            </h3>
+            <p style={{fontSize:14,color:"rgba(255,255,255,0.7)",lineHeight:1.75,margin:0}}>
+              En vous abonnant, vous recevez un <strong style={{color:"#86efac"}}>kit de communication complet</strong> prêt à l'emploi :
+              textes pour votre bulletin municipal, vos réseaux sociaux, votre site internet et la presse locale.
+              Vous n'avez plus qu'à publier.
+            </p>
+          </div>
+          <div style={{textAlign:"center"}}>
+            <button onClick={()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}
+              style={{background:G.vert,color:"#fff",padding:"15px 30px",borderRadius:12,fontSize:15,fontWeight:700,
+                border:"none",cursor:"pointer",boxShadow:`0 8px 24px ${G.vert}55`,width: mobile ? "100%" : "auto"}}>
+              Demander une démo →
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
 // ── FAQ ───────────────────────────────────────────────────────
 function SectionFAQ() {
   const [open,setOpen] = useState(null);
@@ -633,6 +743,7 @@ export default function App() {
       <SectionGratuit />
       <SectionFonctionnalites />
       <SectionAvantApres />
+      <SectionTelecharger />
       <SectionTarifs />
       <SectionTemoignage />
       <SectionFAQ />
