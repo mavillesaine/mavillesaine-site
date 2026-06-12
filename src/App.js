@@ -412,7 +412,10 @@ function SectionTelecharger() {
             <>
               <p style={{fontSize:14,color:"rgba(255,255,255,0.85)",margin:"0 0 24px"}}>Gratuite sur iOS et Android</p>
               <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
-                {LIEN_APP_STORE && (
+               <p style={{fontSize:11,color:"rgba(255,255,255,0.5)",marginTop:14,maxWidth:480,marginLeft:"auto",marginRight:"auto"}}>
+                ℹ️ Android peut afficher un avertissement "source inconnue" lors de l'installation —
+                c'est normal pour une application en phase de test. Acceptez l'installation pour continuer.
+              </p> {LIEN_APP_STORE && (
                   <a href={LIEN_APP_STORE} target="_blank" rel="noopener noreferrer"
                     style={{background:"#000",color:"#fff",padding:"13px 26px",borderRadius:12,fontSize:15,fontWeight:700,
                       textDecoration:"none",display:"inline-flex",alignItems:"center",gap:10}}>
