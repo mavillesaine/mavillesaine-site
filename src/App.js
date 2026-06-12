@@ -619,8 +619,75 @@ function SectionContact() {
               </div>
             </div>
           ))}
-          <div style={{background:G.g50,borderRadius:14,padding:"16px 18px",border:
-// ── FOOTER ────────────────────────────────────────────────────
+        <div style={{background:G.g50,borderRadius:14,padding:"16px 18px",border:`1px solid ${G.g200}`,marginTop:8}}>
+            <div style={{fontSize:13,fontWeight:700,color:G.g700,marginBottom:8}}>Contact direct</div>
+            <div style={{display:"flex",alignItems:"center",gap:10}}>
+              <span style={{fontSize:16}}>📧</span>
+              <span style={{fontSize:13,fontWeight:600,color:G.g700}}>mavillesaine@hotmail.com</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Droite — formulaire */}
+        <div>
+          {sent ? (
+            <div style={{background:G.vertClair,borderRadius:18,padding:"44px 30px",textAlign:"center",border:"2px solid #86efac"}}>
+              <div style={{fontSize:52,marginBottom:16}}>✅</div>
+              <div style={{fontSize:21,fontWeight:800,color:G.vert,marginBottom:10}}>Demande envoyée !</div>
+              <div style={{fontSize:14,color:G.g500,lineHeight:1.75}}>Nous vous recontactons dans les 24h.</div>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} style={{background:"#fff",borderRadius:18,padding:30,
+              boxShadow:"0 6px 30px rgba(0,0,0,0.09)",border:`1px solid ${G.g200}`}}>
+              {error&&<div style={{background:"#fef2f2",border:"1px solid #fca5a5",borderRadius:10,
+                padding:"10px 14px",marginBottom:18,fontSize:13,color:"#dc2626"}}>⚠️ {error}</div>}
+              <div style={{display:"grid",gridTemplateColumns: mobile ? "1fr" : "1fr 1fr",gap:14,marginBottom:14}}>
+                {[{l:"Commune *",k:"commune",p:"La Roche-sur-Yon",t:"text"},
+                  {l:"Nom et fonction *",k:"nom",p:"Maire / DGS…",t:"text"},
+                  {l:"Email *",k:"email",p:"mairie@commune.fr",t:"email"},
+                ].map(f=>(
+                  <div key={f.k} style={{gridColumn:f.k==="email"?"1 / -1":"auto"}}>
+                    <div style={{fontSize:13,fontWeight:600,color:G.g700,marginBottom:6}}>{f.l}</div>
+                    <input type={f.t} value={form[f.k]} onChange={set(f.k)} placeholder={f.p}
+                      required style={inp} onFocus={onF} onBlur={onB}/>
+                  </div>
+                ))}
+              </div>
+              <div style={{marginBottom:14}}>
+                <div style={{fontSize:13,fontWeight:600,color:G.g700,marginBottom:6}}>Taille de votre commune *</div>
+                <select value={form.taille} onChange={set("taille")} required
+                  style={{...inp,background:"#fff",color:form.taille?G.g900:G.g400}}>
+                  <option value="">Sélectionnez votre tranche</option>
+                  {PALIERS.map(p=><option key={p.id} value={p.label}>
+                    {p.pop} — {p.label} {p.badge==="SUR DEVIS"?"(Sur devis)":`(${p.mois}€/mois — ${p.cout_hab})`}
+                  </option>)}
+                </select>
+              </div>
+              <div style={{marginBottom:20}}>
+                <div style={{fontSize:13,fontWeight:600,color:G.g700,marginBottom:6}}>Message (optionnel)</div>
+                <textarea value={form.message} onChange={set("message")}
+                  placeholder="Une question, un contexte particulier…"
+                  rows={3} style={{...inp,resize:"vertical",minHeight:80}}
+                  onFocus={onF} onBlur={onB}/>
+              </div>
+              <button type="submit" disabled={loading||!valid}
+                style={{width:"100%",padding:"15px",borderRadius:12,border:"none",
+                  background:loading||!valid?G.g200:G.vert,
+                  color:loading||!valid?G.g400:"#fff",
+                  fontSize:15,fontWeight:700,cursor:loading||!valid?"not-allowed":"pointer",
+                  boxShadow:valid&&!loading?`0 6px 20px ${G.vert}44`:"none"}}>
+                {loading?"Envoi en cours…":"Demander une démo gratuite →"}
+              </button>
+              <div style={{fontSize:11,color:G.g400,marginTop:12,textAlign:"center"}}>
+                Données utilisées uniquement pour vous recontacter · RGPD · Aucune newsletter sans consentement
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
 function Footer({ onNavigate }) {
   const mobile = useIsMobile();
   return (
