@@ -408,7 +408,46 @@ function SectionTelecharger() {
   // Liens stores — à remplacer le jour de la publication
   const LIEN_GOOGLE_PLAY = "";   // ex: "https://play.google.com/store/apps/details?id=..."
   const LIEN_APP_STORE   = "";   // ex: "https://apps.apple.com/app/..."
-  const dispo = LIEN_GOOGLE_PLAY || LIEN_APP_STORE;
+  {dispo ? (
+            <>
+              <p style={{fontSize:14,color:"rgba(255,255,255,0.85)",margin:"0 0 24px"}}>Gratuite sur iOS et Android</p>
+              <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
+                {LIEN_APP_STORE && (
+                  <a href={LIEN_APP_STORE} target="_blank" rel="noopener noreferrer"
+                    style={{background:"#000",color:"#fff",padding:"13px 26px",borderRadius:12,fontSize:15,fontWeight:700,
+                      textDecoration:"none",display:"inline-flex",alignItems:"center",gap:10}}>
+                    🍎 App Store
+                  </a>
+                )}
+                {LIEN_GOOGLE_PLAY && (
+                  <a href={LIEN_GOOGLE_PLAY} target="_blank" rel="noopener noreferrer"
+                    style={{background:"#fff",color:G.g900,padding:"13px 26px",borderRadius:12,fontSize:15,fontWeight:700,
+                      textDecoration:"none",display:"inline-flex",alignItems:"center",gap:10}}>
+                    ▶ Google Play
+                  </a>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <p style={{fontSize:14,color:"rgba(255,255,255,0.85)",margin:"0 0 8px"}}>
+                L'application Android est disponible en téléchargement direct.
+              </p>
+              <p style={{fontSize:13,color:"rgba(255,255,255,0.65)",margin:"0 0 20px"}}>
+                La version iOS arrive prochainement. Votre commune n'est pas encore équipée ? Parlez-en à votre mairie.
+              </p>
+              <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
+                <a href={LIEN_APK_DIRECT} download
+                  style={{background:"#fff",color:G.g900,padding:"13px 26px",borderRadius:12,fontSize:15,fontWeight:700,
+                    textDecoration:"none",display:"inline-flex",alignItems:"center",gap:10,
+                    boxShadow:"0 6px 18px rgba(0,0,0,0.18)"}}>
+                  ▶ Télécharger pour Android (.apk)
+                </a>
+                <span style={{background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.25)",
+                  padding:"12px 22px",borderRadius:12,fontSize:14,fontWeight:600}}>🍎 App Store — bientôt</span>
+              </div>
+            </>
+          )}
 
   return (
     <section id="telecharger" style={{ padding: mobile ? "40px 16px" : "64px 40px", background:G.g50 }}>
