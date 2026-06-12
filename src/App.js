@@ -408,49 +408,8 @@ function SectionTelecharger() {
   // Liens stores — à remplacer le jour de la publication
   const LIEN_GOOGLE_PLAY = "";   // ex: "https://play.google.com/store/apps/details?id=..."
   const LIEN_APP_STORE   = "";   // ex: "https://apps.apple.com/app/..."
-  {dispo ? (
-            <>
-              <p style={{fontSize:14,color:"rgba(255,255,255,0.85)",margin:"0 0 24px"}}>Gratuite sur iOS et Android</p>
-              <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
-               <p style={{fontSize:11,color:"rgba(255,255,255,0.5)",marginTop:14,maxWidth:480,marginLeft:"auto",marginRight:"auto"}}>
-                ℹ️ Android peut afficher un avertissement "source inconnue" lors de l'installation —
-                c'est normal pour une application en phase de test. Acceptez l'installation pour continuer.
-              </p> {LIEN_APP_STORE && (
-                  <a href={LIEN_APP_STORE} target="_blank" rel="noopener noreferrer"
-                    style={{background:"#000",color:"#fff",padding:"13px 26px",borderRadius:12,fontSize:15,fontWeight:700,
-                      textDecoration:"none",display:"inline-flex",alignItems:"center",gap:10}}>
-                    🍎 App Store
-                  </a>
-                )}
-                {LIEN_GOOGLE_PLAY && (
-                  <a href={LIEN_GOOGLE_PLAY} target="_blank" rel="noopener noreferrer"
-                    style={{background:"#fff",color:G.g900,padding:"13px 26px",borderRadius:12,fontSize:15,fontWeight:700,
-                      textDecoration:"none",display:"inline-flex",alignItems:"center",gap:10}}>
-                    ▶ Google Play
-                  </a>
-                )}
-              </div>
-            </>
-          ) : (
-            <>
-              <p style={{fontSize:14,color:"rgba(255,255,255,0.85)",margin:"0 0 8px"}}>
-                L'application Android est disponible en téléchargement direct.
-              </p>
-              <p style={{fontSize:13,color:"rgba(255,255,255,0.65)",margin:"0 0 20px"}}>
-                La version iOS arrive prochainement. Votre commune n'est pas encore équipée ? Parlez-en à votre mairie.
-              </p>
-              <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
-                <a href={LIEN_APK_DIRECT} download
-                  style={{background:"#fff",color:G.g900,padding:"13px 26px",borderRadius:12,fontSize:15,fontWeight:700,
-                    textDecoration:"none",display:"inline-flex",alignItems:"center",gap:10,
-                    boxShadow:"0 6px 18px rgba(0,0,0,0.18)"}}>
-                  ▶ Télécharger pour Android (.apk)
-                </a>
-                <span style={{background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.25)",
-                  padding:"12px 22px",borderRadius:12,fontSize:14,fontWeight:600}}>🍎 App Store — bientôt</span>
-              </div>
-            </>
-          )}
+  const LIEN_APK_DIRECT  = "https://1w6blb9rvwg260na.public.blob.vercel-storage.com/applicationmavillesaine.apk";
+  const dispo = LIEN_GOOGLE_PLAY || LIEN_APP_STORE;
 
   return (
     <section id="telecharger" style={{ padding: mobile ? "40px 16px" : "64px 40px", background:G.g50 }}>
@@ -513,17 +472,25 @@ function SectionTelecharger() {
           ) : (
             <>
               <p style={{fontSize:14,color:"rgba(255,255,255,0.85)",margin:"0 0 8px"}}>
-                L'application arrive très prochainement sur iOS et Android.
+                L'application Android est disponible en téléchargement direct.
               </p>
               <p style={{fontSize:13,color:"rgba(255,255,255,0.65)",margin:"0 0 20px"}}>
-                Votre commune n'est pas encore équipée ? Parlez-en à votre mairie.
+                La version iOS arrive prochainement. Votre commune n'est pas encore équipée ? Parlez-en à votre mairie.
               </p>
-              <div style={{display:"inline-flex",gap:12,flexWrap:"wrap",justifyContent:"center"}}>
+              <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
+                <a href={LIEN_APK_DIRECT} download
+                  style={{background:"#fff",color:G.g900,padding:"13px 26px",borderRadius:12,fontSize:15,fontWeight:700,
+                    textDecoration:"none",display:"inline-flex",alignItems:"center",gap:10,
+                    boxShadow:"0 6px 18px rgba(0,0,0,0.18)"}}>
+                  ▶ Télécharger pour Android (.apk)
+                </a>
                 <span style={{background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.25)",
                   padding:"12px 22px",borderRadius:12,fontSize:14,fontWeight:600}}>🍎 App Store — bientôt</span>
-                <span style={{background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.25)",
-                  padding:"12px 22px",borderRadius:12,fontSize:14,fontWeight:600}}>▶ Google Play — bientôt</span>
               </div>
+              <p style={{fontSize:11,color:"rgba(255,255,255,0.5)",marginTop:14,maxWidth:480,marginLeft:"auto",marginRight:"auto"}}>
+                ℹ️ Android peut afficher un avertissement "source inconnue" lors de l'installation —
+                c'est normal pour une application en phase de test. Acceptez l'installation pour continuer.
+              </p>
             </>
           )}
         </div>
@@ -555,174 +522,6 @@ function SectionTelecharger() {
     </section>
   );
 }
-// ── FAQ ───────────────────────────────────────────────────────
-function SectionFAQ() {
-  const [open,setOpen] = useState(null);
-  const faqs = [
-    {q:"Est-ce vraiment gratuit pour les citoyens ?", a:"Oui, totalement et définitivement. Téléchargement gratuit, utilisation gratuite, sans publicité, sans partage de données commerciales. C'est la commune qui finance le service."},
-    {q:"Combien ça coûte pour la commune ?", a:"De 89€/mois pour une commune de moins de 500 habitants à 890€/mois pour une ville de 50 000 habitants. Ramené à l'habitant, c'est entre 0,04€ et 0,30€ par habitant par mois."},
-    {q:"Qu'est-ce qu'un superviseur ?", a:"C'est le compte d'un agent municipal qui accède au back-office pour gérer les signalements. Chaque palier inclut un nombre de superviseurs. Vous pouvez en ajouter autant que nécessaire à 35€/mois par compte supplémentaire."},
-    {q:"Comment fonctionne l'IA ?", a:"Elle analyse les photos prises par le citoyen pour évaluer la gravité visuelle du problème, croisée avec la catégorie et la description. Elle attribue un niveau (Normal, Gênant, Dangereux). Le superviseur peut toujours ajuster manuellement."},
-    {q:"Les notifications sont-elles gratuites ?", a:"Oui. MaVilleSaine utilise les notifications push (comme toutes vos applications mobiles) — 100% gratuites. Aucun SMS payant n'est utilisé."},
-    {q:"Combien de temps pour déployer ?", a:"Votre commune est opérationnelle en 24h après la signature. Nous configurons votre espace, créons les comptes de vos agents et l'app est disponible pour vos citoyens."},
-  ];
-  return (
-    <section id="faq" style={{padding:"64px 40px",background:G.g50}}>
-      <div style={{maxWidth:960,margin:"0 auto"}}>
-        <div style={{textAlign:"center",marginBottom:44}}>
-          <div style={{fontSize:12,color:G.vert,fontWeight:700,textTransform:"uppercase",letterSpacing:2.5,marginBottom:10}}>FAQ</div>
-          <h2 style={{fontSize:34,fontWeight:900,color:G.g900,margin:0}}>Questions fréquentes</h2>
-        </div>
-        <div style={{maxWidth:720,margin:"0 auto"}}>
-          {faqs.map((f,i)=>(
-            <div key={i} style={{background:"#fff",borderRadius:14,marginBottom:10,
-              border:`1px solid ${open===i?G.vert:G.g200}`,
-              boxShadow:open===i?`0 4px 16px ${G.vert}18`:"none",transition:"all 0.15s"}}>
-              <div onClick={()=>setOpen(open===i?null:i)}
-                style={{padding:"18px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer"}}>
-                <div style={{fontSize:15,fontWeight:700,color:G.g900}}>{f.q}</div>
-                <div style={{fontSize:20,color:open===i?G.vert:G.g400,flexShrink:0,marginLeft:12,
-                  transition:"transform 0.2s",transform:open===i?"rotate(45deg)":"rotate(0)"}}>+</div>
-              </div>
-              {open===i&&<div style={{padding:"0 20px 18px",fontSize:14,color:G.g500,lineHeight:1.7}}>{f.a}</div>}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── CONTACT ───────────────────────────────────────────────────
-function SectionContact() {
-  const mobile = useIsMobile();
-  const ejsReady = useEmailJS();
-  const [form,setForm] = useState({commune:"",nom:"",email:"",taille:"",message:""});
-  const [loading,setLoading] = useState(false);
-  const [sent,setSent] = useState(false);
-  const [error,setError] = useState("");
-  const set = k => e => setForm(p=>({...p,[k]:e.target.value}));
-  const valid = form.commune&&form.nom&&form.email&&form.taille;
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setLoading(true); setError("");
-    try {
-      if (!ejsReady||EMAILJS_SERVICE_ID==="service_XXXXXXX") {
-        await new Promise(r=>setTimeout(r,1200));
-        setSent(true); return;
-      }
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        commune:form.commune, nom:form.nom, email:form.email,
-        taille:form.taille, message:form.message||"Aucun message",
-        date: new Date().toLocaleString("fr-FR"),
-      });
-      setSent(true);
-    } catch { setError("Erreur d'envoi. Contactez-nous : mavillesaine@hotmail.com"); }
-    finally { setLoading(false); }
-  };
-
-  const inp = { width:"100%", padding:"12px 14px", borderRadius:11, border:`2px solid ${G.g200}`,
-    fontSize:14, outline:"none", boxSizing:"border-box", fontFamily:"inherit", transition:"border-color 0.15s" };
-  const onF = e => e.target.style.borderColor=G.vert;
-  const onB = e => e.target.style.borderColor=G.g200;
-
-  return (
-    <section id="contact" style={{padding:"64px 40px",background:"#fff"}}>
-      <div style={{maxWidth:960,margin:"0 auto",display:"grid",gridTemplateColumns: mobile ? "1fr" : "1fr 1fr",gap: mobile ? 24 : 60,alignItems:"start"}}>
-        {/* Gauche */}
-        <div>
-          <div style={{fontSize:12,color:G.vert,fontWeight:700,textTransform:"uppercase",letterSpacing:2.5,marginBottom:10}}>Contact</div>
-          <h2 style={{fontSize:30,fontWeight:900,color:G.g900,margin:"0 0 16px",letterSpacing:-0.3}}>Demander une démo gratuite</h2>
-          <p style={{fontSize:15,color:G.g500,lineHeight:1.75,marginBottom:28}}>
-            Votre commune configurée en 24h. Sans engagement.
-            Les 10 premières communes bénéficient de <strong style={{color:G.vert}}>3 mois offerts</strong>.
-          </p>
-          {[
-            {icon:"📧",step:"Dans les 24h",desc:"Confirmation par email avec les détails de votre démo"},
-            {icon:"💻",step:"Démo en visio",desc:"30 minutes pour tout vous montrer, à votre convenance"},
-            {icon:"⚙️",step:"Configuration 24h",desc:"Votre commune paramétrée, vos agents formés"},
-            {icon:"✅",step:"3 mois offerts",desc:"Pour les premières communes — résiliation libre"},
-          ].map((s,i)=>(
-            <div key={i} style={{display:"flex",gap:14,marginBottom:16,alignItems:"flex-start"}}>
-              <div style={{width:40,height:40,background:G.vertClair,borderRadius:12,flexShrink:0,
-                display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>{s.icon}</div>
-              <div>
-                <div style={{fontSize:13,fontWeight:700,color:G.vert}}>{s.step}</div>
-                <div style={{fontSize:13,color:G.g500,marginTop:2,lineHeight:1.5}}>{s.desc}</div>
-              </div>
-            </div>
-          ))}
-          <div style={{background:G.g50,borderRadius:14,padding:"16px 18px",border:`1px solid ${G.g200}`,marginTop:8}}>
-            <div style={{fontSize:13,fontWeight:700,color:G.g700,marginBottom:8}}>Contact direct</div>
-            <div style={{display:"flex",alignItems:"center",gap:10}}>
-              <span style={{fontSize:16}}>📧</span>
-              <span style={{fontSize:13,fontWeight:600,color:G.g700}}>mavillesaine@hotmail.com</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Droite — formulaire */}
-        <div>
-          {sent ? (
-            <div style={{background:G.vertClair,borderRadius:18,padding:"44px 30px",textAlign:"center",border:"2px solid #86efac"}}>
-              <div style={{fontSize:52,marginBottom:16}}>✅</div>
-              <div style={{fontSize:21,fontWeight:800,color:G.vert,marginBottom:10}}>Demande envoyée !</div>
-              <div style={{fontSize:14,color:G.g500,lineHeight:1.75}}>Nous vous recontactons dans les 24h.</div>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} style={{background:"#fff",borderRadius:18,padding:30,
-              boxShadow:"0 6px 30px rgba(0,0,0,0.09)",border:`1px solid ${G.g200}`}}>
-              {error&&<div style={{background:"#fef2f2",border:"1px solid #fca5a5",borderRadius:10,
-                padding:"10px 14px",marginBottom:18,fontSize:13,color:"#dc2626"}}>⚠️ {error}</div>}
-              <div style={{display:"grid",gridTemplateColumns: mobile ? "1fr" : "1fr 1fr",gap:14,marginBottom:14}}>
-                {[{l:"Commune *",k:"commune",p:"La Roche-sur-Yon",t:"text"},
-                  {l:"Nom et fonction *",k:"nom",p:"Maire / DGS…",t:"text"},
-                  {l:"Email *",k:"email",p:"mairie@commune.fr",t:"email"},
-                ].map(f=>(
-                  <div key={f.k} style={{gridColumn:f.k==="email"?"1 / -1":"auto"}}>
-                    <div style={{fontSize:13,fontWeight:600,color:G.g700,marginBottom:6}}>{f.l}</div>
-                    <input type={f.t} value={form[f.k]} onChange={set(f.k)} placeholder={f.p}
-                      required style={inp} onFocus={onF} onBlur={onB}/>
-                  </div>
-                ))}
-              </div>
-              <div style={{marginBottom:14}}>
-                <div style={{fontSize:13,fontWeight:600,color:G.g700,marginBottom:6}}>Taille de votre commune *</div>
-                <select value={form.taille} onChange={set("taille")} required
-                  style={{...inp,background:"#fff",color:form.taille?G.g900:G.g400}}>
-                  <option value="">Sélectionnez votre tranche</option>
-                  {PALIERS.map(p=><option key={p.id} value={p.label}>
-                    {p.pop} — {p.label} {p.badge==="SUR DEVIS"?"(Sur devis)":`(${p.mois}€/mois — ${p.cout_hab})`}
-                  </option>)}
-                </select>
-              </div>
-              <div style={{marginBottom:20}}>
-                <div style={{fontSize:13,fontWeight:600,color:G.g700,marginBottom:6}}>Message (optionnel)</div>
-                <textarea value={form.message} onChange={set("message")}
-                  placeholder="Une question, un contexte particulier…"
-                  rows={3} style={{...inp,resize:"vertical",minHeight:80}}
-                  onFocus={onF} onBlur={onB}/>
-              </div>
-              <button type="submit" disabled={loading||!valid}
-                style={{width:"100%",padding:"15px",borderRadius:12,border:"none",
-                  background:loading||!valid?G.g200:G.vert,
-                  color:loading||!valid?G.g400:"#fff",
-                  fontSize:15,fontWeight:700,cursor:loading||!valid?"not-allowed":"pointer",
-                  boxShadow:valid&&!loading?`0 6px 20px ${G.vert}44`:"none"}}>
-                {loading?"Envoi en cours…":"Demander une démo gratuite →"}
-              </button>
-              <div style={{fontSize:11,color:G.g400,marginTop:12,textAlign:"center"}}>
-                Données utilisées uniquement pour vous recontacter · RGPD · Aucune newsletter sans consentement
-              </div>
-            </form>
-          )}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ── FOOTER ────────────────────────────────────────────────────
 function Footer({ onNavigate }) {
   const mobile = useIsMobile();
