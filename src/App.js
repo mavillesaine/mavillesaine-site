@@ -521,7 +521,105 @@ function SectionTelecharger() {
       </div>
     </section>
   );
+}// ── FAQ ───────────────────────────────────────────────────────
+function SectionFAQ() {
+  const [open,setOpen] = useState(null);
+  const faqs = [
+    {q:"Est-ce vraiment gratuit pour les citoyens ?", a:"Oui, totalement et définitivement. Téléchargement gratuit, utilisation gratuite, sans publicité, sans partage de données commerciales. C'est la commune qui finance le service."},
+    {q:"Combien ça coûte pour la commune ?", a:"De 89€/mois pour une commune de moins de 500 habitants à 890€/mois pour une ville de 50 000 habitants. Ramené à l'habitant, c'est entre 0,04€ et 0,30€ par habitant par mois."},
+    {q:"Qu'est-ce qu'un superviseur ?", a:"C'est le compte d'un agent municipal qui accède au back-office pour gérer les signalements. Chaque palier inclut un nombre de superviseurs. Vous pouvez en ajouter autant que nécessaire à 35€/mois par compte supplémentaire."},
+    {q:"Comment fonctionne l'IA ?", a:"Elle analyse les photos prises par le citoyen pour évaluer la gravité visuelle du problème, croisée avec la catégorie et la description. Elle attribue un niveau (Normal, Gênant, Dangereux). Le superviseur peut toujours ajuster manuellement."},
+    {q:"Les notifications sont-elles gratuites ?", a:"Oui. MaVilleSaine utilise les notifications push (comme toutes vos applications mobiles) — 100% gratuites. Aucun SMS payant n'est utilisé."},
+    {q:"Combien de temps pour déployer ?", a:"Votre commune est opérationnelle en 24h après la signature. Nous configurons votre espace, créons les comptes de vos agents et l'app est disponible pour vos citoyens."},
+  ];
+  return (
+    <section id="faq" style={{padding:"64px 40px",background:G.g50}}>
+      <div style={{maxWidth:960,margin:"0 auto"}}>
+        <div style={{textAlign:"center",marginBottom:44}}>
+          <div style={{fontSize:12,color:G.vert,fontWeight:700,textTransform:"uppercase",letterSpacing:2.5,marginBottom:10}}>FAQ</div>
+          <h2 style={{fontSize:34,fontWeight:900,color:G.g900,margin:0}}>Questions fréquentes</h2>
+        </div>
+        <div style={{maxWidth:720,margin:"0 auto"}}>
+          {faqs.map((f,i)=>(
+            <div key={i} style={{background:"#fff",borderRadius:14,marginBottom:10,
+              border:`1px solid ${open===i?G.vert:G.g200}`,
+              boxShadow:open===i?`0 4px 16px ${G.vert}18`:"none",transition:"all 0.15s"}}>
+              <div onClick={()=>setOpen(open===i?null:i)}
+                style={{padding:"18px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer"}}>
+                <div style={{fontSize:15,fontWeight:700,color:G.g900}}>{f.q}</div>
+                <div style={{fontSize:20,color:open===i?G.vert:G.g400,flexShrink:0,marginLeft:12,
+                  transition:"transform 0.2s",transform:open===i?"rotate(45deg)":"rotate(0)"}}>+</div>
+              </div>
+              {open===i&&<div style={{padding:"0 20px 18px",fontSize:14,color:G.g500,lineHeight:1.7}}>{f.a}</div>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
+
+// ── CONTACT ───────────────────────────────────────────────────
+function SectionContact() {
+  const mobile = useIsMobile();
+  const ejsReady = useEmailJS();
+  const [form,setForm] = useState({commune:"",nom:"",email:"",taille:"",message:""});
+  const [loading,setLoading] = useState(false);
+  const [sent,setSent] = useState(false);
+  const [error,setError] = useState("");
+  const set = k => e => setForm(p=>({...p,[k]:e.target.value}));
+  const valid = form.commune&&form.nom&&form.email&&form.taille;
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setLoading(true); setError("");
+    try {
+      if (!ejsReady||EMAILJS_SERVICE_ID==="service_XXXXXXX") {
+        await new Promise(r=>setTimeout(r,1200));
+        setSent(true); return;
+      }
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        commune:form.commune, nom:form.nom, email:form.email,
+        taille:form.taille, message:form.message||"Aucun message",
+        date: new Date().toLocaleString("fr-FR"),
+      });
+      setSent(true);
+    } catch { setError("Erreur d'envoi. Contactez-nous : mavillesaine@hotmail.com"); }
+    finally { setLoading(false); }
+  };
+
+  const inp = { width:"100%", padding:"12px 14px", borderRadius:11, border:`2px solid ${G.g200}`,
+    fontSize:14, outline:"none", boxSizing:"border-box", fontFamily:"inherit", transition:"border-color 0.15s" };
+  const onF = e => e.target.style.borderColor=G.vert;
+  const onB = e => e.target.style.borderColor=G.g200;
+
+  return (
+    <section id="contact" style={{padding:"64px 40px",background:"#fff"}}>
+      <div style={{maxWidth:960,margin:"0 auto",display:"grid",gridTemplateColumns: mobile ? "1fr" : "1fr 1fr",gap: mobile ? 24 : 60,alignItems:"start"}}>
+        {/* Gauche */}
+        <div>
+          <div style={{fontSize:12,color:G.vert,fontWeight:700,textTransform:"uppercase",letterSpacing:2.5,marginBottom:10}}>Contact</div>
+          <h2 style={{fontSize:30,fontWeight:900,color:G.g900,margin:"0 0 16px",letterSpacing:-0.3}}>Demander une démo gratuite</h2>
+          <p style={{fontSize:15,color:G.g500,lineHeight:1.75,marginBottom:28}}>
+            Votre commune configurée en 24h. Sans engagement.
+            Les 10 premières communes bénéficient de <strong style={{color:G.vert}}>3 mois offerts</strong>.
+          </p>
+          {[
+            {icon:"📧",step:"Dans les 24h",desc:"Confirmation par email avec les détails de votre démo"},
+            {icon:"💻",step:"Démo en visio",desc:"30 minutes pour tout vous montrer, à votre convenance"},
+            {icon:"⚙️",step:"Configuration 24h",desc:"Votre commune paramétrée, vos agents formés"},
+            {icon:"✅",step:"3 mois offerts",desc:"Pour les premières communes — résiliation libre"},
+          ].map((s,i)=>(
+            <div key={i} style={{display:"flex",gap:14,marginBottom:16,alignItems:"flex-start"}}>
+              <div style={{width:40,height:40,background:G.vertClair,borderRadius:12,flexShrink:0,
+                display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>{s.icon}</div>
+              <div>
+                <div style={{fontSize:13,fontWeight:700,color:G.vert}}>{s.step}</div>
+                <div style={{fontSize:13,color:G.g500,marginTop:2,lineHeight:1.5}}>{s.desc}</div>
+              </div>
+            </div>
+          ))}
+          <div style={{background:G.g50,borderRadius:14,padding:"16px 18px",border:
 // ── FOOTER ────────────────────────────────────────────────────
 function Footer({ onNavigate }) {
   const mobile = useIsMobile();
